@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h1>계산 결과</h1>
+  <p>{{ number1 }} + {{ number2 }} = {{ number1|add:number2 }}</p>
+  <p>{{ number1 }} - {{ number2 }} = {{ number_sub }}</p>
+  <p>{{ number1 }} * {{ number2 }} = {% widthratio number1 1 number2 %}</p>
+  {% if number2 != '0' %}<p>{{ number1 }} / {{ number2 }} = {{ number3 }}</p>
+  {% else %}
+  <p>계산할 수 없습니다.</p>
+  {% endif %}
+{% endblock content %}

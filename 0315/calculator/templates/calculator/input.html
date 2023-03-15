@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>연산할 두 둣자를 입력하세요.</h1>
+<form action="{% url 'calculator:output' %}" method="GET">
+  <p>첫번째 숫자</p>
+  <input type="number" name = "number1", id = "number1">
+  <p>두번째 숫자</p>  
+  <input type="number" name = "number2", id = "number2">
+  <br>
+  <input type="submit", value = 'cal'>
+</form>
+{% endblock content %}

@@ -1,0 +1,10 @@
+{% extends 'templates/base.html' %}
+{% block content %}
+  <h1>안녕하세요!</h1>
+  {{ menu }}
+
+  {% for menu1 in menu %}
+    <p>{{ forloop.counter }} {{ menu1 }}</p>
+    {{ break }}
+  {% endfor %}
+{% endblock content %}
