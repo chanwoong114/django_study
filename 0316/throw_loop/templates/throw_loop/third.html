@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>catch! I catch only {{ message }} ㅠㅠ</h2>
+<form action="{% url 'throw_loop:first' %}">
+  <label for="throw">throw!</label>
+  <input type="text" name="message">
+  <input type="submit">
+</form>
+{% endblock content %}
