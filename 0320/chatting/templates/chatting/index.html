@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+  <div class="d-flex justify-content-center"><h1>자유게시판</h1></div>
+  <a href="{% url 'chatting:create' %}">작성하기</a>
+  <hr>
+  {% for chatting in chattings %}
+  <p>작성자 : {{ chatting.user }}</p>
+  <p>내용 : {{ chatting.content }}</p>
+  <a href="{% url 'chatting:detail' chatting.id %}">[detail]</a><br>
+  <a href="{% url 'chatting:update' chatting.id %}">[edit]</a><br>
+  <form action="{% url 'chatting:delete' chatting.id %}" method="POST">
+    {% csrf_token %}
+    <input type="submit" value="DELETE">
+  </form>
+  <hr>
+
+  {% endfor %}
+</div>
+{% endblock content %}

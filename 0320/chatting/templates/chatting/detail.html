@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+  <div class="d-flex justify-content-center"><h1>DETAIL</h1></div>
+  <h3>{{ chatting.user }}의 글</h3>
+  <hr>
+  <p>내용 : {{ chatting.content }}</p>
+  <p>작성 시간 : {{ chatting.created_at }}</p>
+  <p>수정 시간 : {{ chatting.update_at }}</p>
+  <a href="{% url 'chatting:update' chatting.id %}">[edit]</a><br>
+  <form action="{% url 'chatting:delete' chatting.id %}" method="POST">
+    {% csrf_token %}
+    <input type="submit" value="DELETE">
+  </form>
+  <hr>
+  {% if chatting.get_previous %}
+    <a href="{{ chatting.get_previous.get_absolute_url }}">[prev]</a>
+  {% endif %}
+  {% if chatting.get_next %}
+    <a href="{{ chatting.get_next.get_absolute_url }}">[next]</a>
+  {% endif %}
+  <br>
+  <a href="{% url 'chatting:index' %}">[back]</a>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+  <div class="d-flex justify-content-center"><h1>새 글 작 성</h1></div>
+  <hr>
+  <form action="{% url 'chatting:create' %}" method="POST">
+    {% csrf_token %}
+    <label for="user">작성자 : </label>
+    <input type="text" name="user"><br><br>
+    <label for="content">내용 : </label>
+    <textarea name="content"></textarea><br><br>
+    <input type="submit" value="제출">
+  </form>
+  <br>
+  <a href="{% url 'chatting:index' %}">[back]</a>
+</div>
+{% endblock content %}
