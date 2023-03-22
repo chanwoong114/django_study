@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>DETAIL</h2>
+  <h3>{{ chatting.pk }} 번째 글</h3>
+  <hr>
+  <p>작성자: {{ chatting.user }}</p>
+  <p>내용: {{ chatting.content }}</p>
+  {% if chatting.image.url %}
+    <img src="{{ chatting.image.url }}" alt="{{ chatting.image }}">
+  {% endif %}
+  <p>작성 시각: {{ chatting.created_at }}</p>
+  <p>수정 시각: {{ chatting.updated_at }}</p>
+  <hr>
+  <form action="{% url 'chattings:delete' chatting.pk %}" method="POST">
+    {% csrf_token %}
+    <button>삭제</button>
+  </form>
+  <a href="{% url 'chattings:update' chatting.pk%}">[UPDATE]</a>
+  <hr>
+  <a href="{% url 'chattings:index' %}">[back]</a>
+{% endblock  %}

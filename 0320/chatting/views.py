@@ -1,4 +1,6 @@
 from django.shortcuts import redirect, render
+
+from chatting.forms import ChattingForm
 from .models import Chatting
 # Create your views here.
 def index(request):
@@ -17,13 +19,15 @@ def detail(request, pk):
 
 def create(request):
     if request.method == 'POST':
-        chatting = Chatting()
-        chatting.user = request.POST.get('user')
-        chatting.content = request.POST.get('content')
-        chatting.save()
-        return redirect('chatting:index')
+        form = ChattingForm(request.POST)
+        if form.is_valid:
+            chatting = form.save()
+            return redirect('chatting:index')
     else:
-        return render(request, 'chatting/create.html')
+        form = ChattingForm()
+
+    context = {'form' : form}
+    return render(request, 'chatting/create.html', context)
     
 def update(request, pk):
     chatting = Chatting.objects.get(pk=pk)

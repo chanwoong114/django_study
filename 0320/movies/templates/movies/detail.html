@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+  <div class="container">
+    <h1>Detail</h1>
+    <hr>
+    <p>제목 : {{ movie.title }}</p>
+    <p>감독 : {{ movie.director }}</p>
+    <p>댓글 : {{ movie.comment }}</p>
+  </div>
+{% endblock content %}

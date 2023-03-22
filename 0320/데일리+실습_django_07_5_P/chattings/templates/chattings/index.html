@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Chattings</h1>
+  <a href="{% url 'chattings:create' %}">CREATE</a>
+  <hr>
+  {% for chatting in chattings %}
+    <p>글 번호: {{ chatting.pk }}</p>
+    {% if chatting.image_thumbnail %}
+      <img src="{{ chatting.image_thumbnail.url }}" alt="">
+    {% endif %}
+    <p>작성자: {{ chatting.user }}</p>
+    <p>글 내용: {{ chatting.content }}</p>
+    <a href="{% url 'chattings:detail' chatting.pk %}">[detail]</a>
+    <hr>
+  {% endfor %}
+{% endblock %}

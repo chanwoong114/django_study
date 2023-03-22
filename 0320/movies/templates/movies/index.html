@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+  <h1>Movies</h1>
+  <a href="{% url 'movies:create' %}">CREATE</a>
+  <hr>
+  {% for movie in movies %}
+    <p>제목 : {{ movie.title }}</p><br>
+    <p>감독 : {{ movie.director }}</p><br>
+    <a href="{% url 'movies:detail' movie.id %}">[detail]</a>
+    <hr>
+  {% endfor %}
+</div>
+
+{% endblock content %}

@@ -5,10 +5,7 @@
   <hr>
   <form action="{% url 'chatting:create' %}" method="POST">
     {% csrf_token %}
-    <label for="user">작성자 : </label>
-    <input type="text" name="user"><br><br>
-    <label for="content">내용 : </label>
-    <textarea name="content"></textarea><br><br>
+    {{ form.as_p }}
     <input type="submit" value="제출">
   </form>
   <br>
