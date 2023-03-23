@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+{% block content %}
+    <h1>회원가입</h1>
+    <form action="{% url 'accounts:signup' %}" method="POST">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% buttons %}
+            <button type="submit" class="btn btn-success">Sign up</button>
+        {% endbuttons %}
+    </form>
+{% endblock content %}
