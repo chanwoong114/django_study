@@ -1,0 +1,33 @@
+{% extends 'base.html' %} {% block content %}
+
+<h1>로그인</h1>
+
+<form method="post" action="{% url 'users:login' %}">
+  {% csrf_token %}
+
+  <div>
+    <label for="username">사용자 ID</label>
+    <input type="text" name="username" id="username" />
+  </div>
+  <div>
+    <label for="password">비밀번호</label>
+    <input type="password" name="password" id="password" />
+  </div>
+  {% if error_message %}
+  <p>{{ error_message }}</p>
+  {% endif %}
+  <button type="submit">로그인</button><br />
+  <a href="{% url 'signup:signup' %}">회원가입</a>
+</form>
+{% comment %}
+<h1>Login</h1>
+
+<form method="POST" action="{% url 'users:login' %}">
+  {% csrf_token %} {% include 'users/form_errors.html' %}
+  <label for="username">Username:</label><br />
+  <input type="text" id="username" name="username" /><br />
+  <label for="password">Password:</label><br />
+  <input type="password" id="password" name="password" /><br /><br />
+  <input type="submit" value="Login" />
+</form>
+{% endcomment %} {% endblock %}
