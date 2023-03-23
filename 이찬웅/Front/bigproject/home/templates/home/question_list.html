@@ -1,0 +1,318 @@
+{% load static %}
+{% load home_filter %}
+<!doctype html>
+<html class="h-100" lang="en">
+
+<head>
+      <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+  <meta name="description" content="A well made and handcrafted Bootstrap 5 template">
+  <link rel="apple-touch-icon" sizes="180x180" href="../../img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../../img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../../img/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="../../img/favicon.png">
+  <meta name="author" content="Holger Koenemann">
+  <meta name="generator" content="Eleventy v2.0.0">
+  <meta name="HandheldFriendly" content="true">
+  <title>Preboard</title>
+  <link rel="stylesheet" href="{% static 'css/table.css' %}">
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+  <style>
+    @font-face {
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 300;
+      font-display: swap;
+      src: local(''),
+           url('../../static/fonts/inter-v12-latin-300.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+           url('../../static/fonts/inter-v12-latin-300.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+    }
+    
+    /* inter-400 - latin */
+    @font-face {
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+      src: local(''),
+           url('../../static/fonts/inter-v12-latin-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+           url('../../static/fonts/inter-v12-latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+    }
+    
+    @font-face {
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 500;
+      font-display: swap;
+      src: local(''),
+           url('../../static/fonts/inter-v12-latin-500.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+           url('../../static/fonts/inter-v12-latin-500.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+    }
+    @font-face {
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 700;
+      font-display: swap;
+      src: local(''),
+           url('../../static/fonts/inter-v12-latin-700.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+           url('../../static/fonts/inter-v12-latin-700.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+    }
+    
+    table, th, td, tr {
+      
+      
+    }
+    table {
+      width: 100%;
+    }
+    th {
+      border-bottom: 1px solid #bcbcbc;
+      text-align: center;
+    }
+    td {
+      border-bottom:1px solid #FFFFFF;
+      text-align: center;
+    }
+    tr {
+      border-bottom:1px solid #FFFFFF;
+      text-align: center;
+    }
+  </style>
+  <nav id="navScroll" class="navbar navbar-dark bg-black fixed-top px-vw-5" tabindex="0">
+    <div class="container">
+      <a class="navbar-brand pe-md-4 fs-4 col-12 col-md-auto text-center" href="{% url 'main' %}">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-stack" viewBox="0 0 16 16">
+      <path d="m14.12 10.163 1.715.858c.22.11.22.424 0 .534L8.267 15.34a.598.598 0 0 1-.534 0L.165 11.555a.299.299 0 0 1 0-.534l1.716-.858 5.317 2.659c.505.252 1.1.252 1.604 0l5.317-2.66zM7.733.063a.598.598 0 0 1 .534 0l7.568 3.784a.3.3 0 0 1 0 .535L8.267 8.165a.598.598 0 0 1-.534 0L.165 4.382a.299.299 0 0 1 0-.535L7.733.063z"/>
+      <path d="m14.12 6.576 1.715.858c.22.11.22.424 0 .534l-7.568 3.784a.598.598 0 0 1-.534 0L.165 7.968a.299.299 0 0 1 0-.534l1.716-.858 5.317 2.659c.505.252 1.1.252 1.604 0l5.317-2.659z"/>
+    </svg>
+    <span class="ms-md-1 mt-1 fw-bolder me-md-5"><strong>BTS</strong></span>
+  </a>
+  
+        <ul class="navbar-nav mx-auto mb-2 mb-lg-0 list-group list-group-horizontal">
+        <li class="nav-item">
+    <a class="nav-link fs-5" href="{% url 'main' %}" aria-label="Homepage">
+      Home
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link fs-5" href="{% url 'home:question_list' %}" aria-label="A sample content page">
+      게시판
+    </a>
+  </li>
+  <li class="nav-item">
+    {% if user.is_authenticated %}
+    <a class="nav-link fs-5" href="{% url 'users:mypage' %}" aria-label="A system message page">마이페이지</a>
+    {% endif %}
+  </li>
+  
+      </ul>
+        {% if user.is_authenticated %}
+        <a href="{% url 'users:logout' %}" aria-label="Download this template" class="btn btn-outline-light">
+          <small> {{ user.username }}님 로그아웃 </small>
+        </a>
+        {% else %}
+        <a href="/users/login" aria-label="Download this template" class="btn btn-outline-light">
+          <small> Login </small>
+        </a>
+        {% endif %}
+  </div>
+  </nav>
+</head>
+
+<body class="bg-withe text-black mt-0" data-bs-spy="scroll" data-bs-target="#navScroll">
+
+
+
+    <div class="h-100 container-fluid">
+      <div class="h-100 row d-flex align-items-stretch">
+        
+          
+          
+            <header class="mb-auto py-vh-2 col-12">
+              <a class="navbar-brand pe-md-4 fs-4 col-12 col-md-auto text-center" href="{% url 'main' %}">
+  <span class="ms-md-1 mt-1 fw-bolder me-md-5">BTS</span>
+</a>
+
+            </header>
+            <main class="mb-auto col-12">
+              <br><br><br>
+              <h1>Preboard</h1>
+              
+
+            </main>
+            <div id="board-search">
+              <div class="container">
+                  <div class="search-window">
+                      <form action="{% url 'home:search' %}" method="get">
+                          <div class="search-wrap">
+                              <label for="search" class="blind">공지사항 내용 검색</label>
+                              <select name="search_type" value="{{ search_type }}" id="search_type">
+                                <option value="all">제목+내용+작성자</option>
+                                <option value="subject_content">제목+내용</option>
+                                <option value="subject">제목</option>
+                                <option value="content">내용</option>
+                                <option value="writer">작성자</option>
+                              </select>
+                              <br>
+                              <input id="search" type="search" placeholder="Search" aria-label="Search" name="q" value="{{ q }}" class="form-control- form-control-lg bg-white-800 border-white">
+                              <button type="submit" class="btn btn-dark">검색</button>
+                              {% for message in messages %}
+                                {{ message.tag }}
+                                {{ message }}
+                              {% endfor %}
+                          </div>
+                      </form>
+                  </div>
+              </div>
+          </div>
+          {% if not post %}
+          <div class="container">
+            <table class="board-list">
+                <thead>
+                  <tr class="thead-white">
+                    <th scope="col" class="th-num" height="70">번호</th>
+                    <th scope="col" class="th-title" height="70">제목</th>
+                    <th scope="col" class="th-date" height="70">작성일시</th>
+                    <th scope="col" class="th-title" height="70">작성자</th>
+                    <th scope="col" class="th-num" height="70">댓글 수</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% if questions_list %}
+                    {% for question in questions_list %}
+                    <tr>
+                      <td height="70">{{ questions_list.paginator.count|sub:questions_list.start_index|sub:forloop.counter0|add:1 }}</td>
+                      <td>
+                        <a href="{% url 'home:question_detail' question.id %}" style="color:black">{{ question.subject }}</a>
+                      </td>
+                      <td>{{ question.create_date }}</td>
+                      <td>{{ question.user }}</td>
+                      <td>
+                          {% if question.answer_set.count > 0 %}
+                          {{ question.answer_set.count }}
+                          {% else %}
+                          0
+                          {% endif %}
+                      </td>
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                    <tr>
+                      <td colspan="5">"{{ q }}"에 대한 글이 없습니다.</td>
+                    </tr>
+                    {% endif %}
+                  </tbody>
+              </table>
+            </div>
+              
+              <ul>
+                <li>
+                  <div style="text-align:center">
+                <!-- 이전 페이지가 있으면 -->
+                  {% if questions_list.has_previous %}
+                  <a href="?page={{ start_index }}" style="color:black" class="btn btn-outline-danger">맨앞</a>
+                  <a href="?page={{ questions_list.previous_page_number }}" style="color:black" class="btn btn-outline-warning">이전</a>
+                  {% endif %}
+                  <!-- 페이지 리스트 -->
+                  {% for page_number in questions_list.paginator.page_range %}
+                  <!-- 코드 추가하기 : 페이지 표시 제한 기능 구현하기 -->
+                  {% if questions_list.number|add:3 >= page_number and page_number >= questions_list.number|add:-3 %}
+                  <!-- 현재 페이지 번호랑 같다면 style을 다르게 줄 수 있다. -->
+                  {% if page_number == questions_list.number %}
+                  <a href="?page={{ page_number }}" style="color:black" class="btn btn-outline-dark">{{ page_number }}</a>
+                  {% else %}
+                  <a href="?page={{ page_number }}" style="color:black" class="btn btn-outline-warning">{{ page_number }}</a>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor%}
+                  <!-- 다음 페이지가 있으면 -->
+                  {% if questions_list.has_next %}
+                  <a href="?page={{ questions_list.next_page_number }}" style="color:black" class="btn btn-outline-warning">다음</a>
+                  <a href="?page={{ questions_list.end_index }}" style="color:black" class="btn btn-outline-danger">맨뒤</a>
+                  {% endif %}
+                  </div>
+                </li>
+              </ul>
+              {% else %}
+              <div class="container">
+              {% if not post %}
+                <h2>{{ q }}에 대한 검색 결과가 없습니다</h2>
+              {% else %}
+              <h2>{{ q }}에 대한 검색 결과</h2>
+              <table class="board-list">
+                <thead>
+                  <tr class="thead-white">
+                    <th scope="col" class="th-num" height="70">번호</th>
+                    <th scope="col" class="th-title" height="70">제목</th>
+                    <th scope="col" class="th-date" height="70">작성일시</th>
+                    <th scope="col" class="th-title" height="70">작성자</th>
+                    <th scope="col" class="th-num" height="70">댓글 수</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% if post %}
+                  {% for posts in post %}
+                  <tr>
+                    <td height="70">{{ post.paginator.count|sub:post.start_index|sub:forloop.counter0|add:1 }}</td>
+                    <td>
+                      <a href="{% url 'home:question_detail' posts.id %}" style="color:black">{{ posts.subject }}</a>
+                    </td>
+                    <td>{{ posts.create_date }}</td>
+                    <td>{{ posts.user }}</td>
+                    <td>
+                        {% if posts.answer_set.count > 0 %}
+                        {{ posts.answer_set.count }}
+                        {% else %}
+                        0
+                        {% endif %}
+                    </td>
+                  </tr>
+                  {% endfor %}
+                  {% else %}
+                  <tr>
+                    <td colspan="4">{{ q }}에 대한 글이 없습니다.</td>
+                  </tr>
+                  {% endif %}
+                </tbody>
+              </table>
+            </div> 
+              {% endif %}
+              <ul>
+                <li>
+                  <div style="text-align:center">
+                <!-- 이전 페이지가 있으면 -->
+                  {% if post.has_previous %}
+                  <a href="?search_type={{ search_type }}&q={{ q }}&page={{ post.previous_page_number }}" style="color:black" class="btn btn-outline-danger">이전</a>
+                  {% endif %}
+                  <!-- 페이지 리스트 -->
+                  {% for page_number in post.paginator.page_range %}
+                  <!-- 코드 추가하기 : 페이지 표시 제한 기능 구현하기 -->
+                  {% if post.number|add:5 >= page_number and page_number >= post.number|add:-5 %}
+                  <!-- 현재 페이지 번호랑 같다면 style을 다르게 줄 수 있다. -->
+                  {% if page_number == post.number %}
+                  <a href="?search_type={{ search_type }}&q={{ q }}&page={{ page_number }}" style="color:black" class="btn btn-outline-dark">{{ page_number }}</a>
+                  {% else %}
+                  <a href="?search_type={{ search_type }}&q={{ q }}&page={{ page_number }}" style="color:black" class="btn btn-outline-warning">{{ page_number }}</a>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor%}
+                  <!-- 다음 페이지가 있으면 -->
+                  {% if post.has_next %}
+                  <a href="?search_type={{ search_type }}&q={{ q }}&page={{ post..next_page_number }}" style="color:black" class="btn btn-outline-warning">다음</a>
+                  {% endif %}
+                  <div>
+                </li>
+              </ul>
+              {% endif %}
+              <a href="{% url 'home:question_create' %}" style="color:black" class="btn btn-outline-light">질문 등록하기</a>
+              <!-- 모델 폼 이용하지 않을 경우 -->
+              {% comment %} <a href="{% url 'home:question_new' %}">질문 등록하기</a> {% endcomment %}
+          
+          
+            <div class="col-12 col-md-5 col-lg-6 col-xl-7 gradient"></div>
+          
+        </div>
+
+      </div></body>
+    </html>

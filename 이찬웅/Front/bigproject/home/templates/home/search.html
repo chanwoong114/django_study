@@ -1,0 +1,114 @@
+{% extends 'base.html' %} {% load home_filter %} {% block content %}
+
+<div id="board-search">
+  <div class="container">
+    <div class="search-window">
+      <form action="{% url 'home:search' %}" method="get">
+        >
+        <div class="search-wrap">
+          <label for="search" class="blind">공지사항 내용 검색</label>
+          <input
+            id="search"
+            type="search"
+            placeholder="Search"
+            aria-label="Search"
+            name="q"
+            value="{{ q }}"
+            placeholder="검색어를 입력해주세요."
+            class="form-control- form-control-lg bg-white-800 border-white"
+          />
+          <button type="submit" class="btn btn-dark">검색</button>
+          {% for message in messages %} {{ message.tag }} {{ message }} {%
+          endfor %}
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% if not post %}
+<h2>{{ q }}에 대한 검색 결과가 없습니다</h2>
+{% else %}
+<h2>{{ q }}에 대한 검색 결과</h2>
+<table class="board-list">
+  <thead>
+    <tr class="thead-white">
+      <th scope="col" class="th-num" height="70">번호</th>
+      <th scope="col" class="th-title" height="70">제목</th>
+      <th scope="col" class="th-date" height="70">작성일시</th>
+      <th scope="col" class="th-title" height="70">작성자</th>
+      <th scope="col" class="th-num" height="70">댓글 수</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% if post %} {% for posts in post %}
+    <tr>
+      <td height="70">
+        {{ post.paginator.count|sub:post.start_index|sub:forloop.counter0|add:1
+        }}
+      </td>
+      <td>
+        <a href="{% url 'home:question_detail' posts.id %}" style="color: black"
+          >{{ posts.subject }}</a
+        >
+      </td>
+      <td>{{ posts.create_date }}</td>
+      <td>{{ posts.user }}</td>
+      <td>
+        {% if posts.answer_set.count > 0 %} {{ posts.answer_set.count }} {% else
+        %} 0 {% endif %}
+      </td>
+    </tr>
+    {% endfor %} {% else %}
+    <tr>
+      <td colspan="3">글이 없습니다.</td>
+    </tr>
+    {% endif %}
+  </tbody>
+</table>
+{% endif %}
+<ul>
+  <li>
+    <!-- 이전 페이지가 있으면 -->
+    {% if post.has_previous %}
+    <a
+      href="?q={{ q }}&page={{ post.previous_page_number }}"
+      style="color: black"
+      class="btn btn-outline-danger"
+      >이전</a
+    >
+    {% endif %}
+    <!-- 페이지 리스트 -->
+    {% for page_number in post.paginator.page_range %}
+    <!-- 코드 추가하기 : 페이지 표시 제한 기능 구현하기 -->
+    {% if post.number|add:5 >= page_number and page_number >= post.number|add:-5
+    %}
+    <!-- 현재 페이지 번호랑 같다면 style을 다르게 줄 수 있다. -->
+    {% if page_number == post.number %}
+    <a
+      href="?page={{ page_number }}&q={{ q }}"
+      style="color: skyblue"
+      class="btn btn-outline-warning"
+      >{{ page_number }}</a
+    >
+    {% else %}
+    <a
+      href="?page={{ page_number }}&q={{ q }}"
+      style="color: black"
+      class="btn btn-outline-dark"
+      >{{ page_number }}</a
+    >
+    {% endif %} {% endif %} {% endfor%}
+    <!-- 다음 페이지가 있으면 -->
+    {% if post.has_next %}
+    <a
+      href="?q={{ q }}&page={{ post.next_page_number }}"
+      style="color: black"
+      class="btn btn-outline-warning"
+      >다음</a
+    >
+    {% endif %}
+  </li>
+</ul>
+
+{% endblock %}

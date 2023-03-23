@@ -1,0 +1,92 @@
+<!-- question_list.html -->
+
+{% extends 'base.html' %}
+{% load home_filter %}
+{% block content %}
+<style>
+  table, th, td {
+    
+    
+  }
+  table {
+    width: 1000px;
+    height: 400px;
+  }
+  th {
+    border-bottom: 1px solid #bcbcbc;
+  }
+  td {
+    border-bottom:1px solid #FFFFFF;
+    text-align: center;
+  }
+</style>
+
+<div class="container my-3">
+  <h1 class="border-bottom py-2">질문 리스트 보기</h1>
+  <table class="table">
+    <thead>
+      <tr class="thead-dark">
+        <th style="width:70px">번호</th>
+        <th style="width:400px">제목</th>
+        <th style="width:250px">작성일시</th>
+        <th style="width:150px">작성자</th>
+        <th style="width:70px">댓글 수</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% if questions_list %}
+      {% for question in questions_list %}
+      <tr>
+        <td>{{ questions_list.paginator.count|sub:questions_list.start_index|sub:forloop.counter0|add:1 }}</td>
+        <td>
+          <a href="{% url 'home:question_detail' question.id %}" style="color:white">{{ question.subject }}</a>
+        </td>
+        <td>{{ question.create_date }}</td>
+        <td>{{ question.user }}</td>
+        <td>
+            {% if question.answer_set.count > 0%}
+            {{ question.answer_set.count }}
+            {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+      {% else %}
+      <tr>
+        <td colspan="3">질문이 없습니다.</td>
+      </tr>
+      {% endif %}
+    </tbody>
+  </table>
+  <ul>
+    <!-- 이전 페이지가 있으면 -->
+    {% if questions_list.has_previous %}
+    <a href="?page={{ questions_list.previous_page_number }}" style="color:white">이전</a>
+    {% endif %}
+    <!-- 페이지 리스트 -->
+    {% for page_number in questions_list.paginator.page_range %}
+    <!-- 코드 추가하기 : 페이지 표시 제한 기능 구현하기 -->
+    {% if questions_list.number|add:5 >= page_number and page_number >= questions_list.number|add:-5 %}
+    <!-- 현재 페이지 번호랑 같다면 style을 다르게 줄 수 있다. -->
+    {% if page_number == question_list.number %}
+    <li>
+      <a href="?page={{ page_number }}" style="color:skyblue">{{ page_number }}</a>
+    </li>
+    {% else %}
+    <li>
+      <a href="?page={{ page_number }}" style="color:white">{{ page_number }}</a>
+    </li>
+    {% endif %}
+    {% endif %}
+    {% endfor%}
+    <!-- 다음 페이지가 있으면 -->
+    {% if questions_list.has_next %}
+    <a href="?page={{ questions_list.next_page_number }}" style="color:white">다음</a>
+    {% endif %}
+  </ul>
+  <a href="{% url 'home:question_create' %}" style="color:white">질문 등록하기</a>
+  <!-- 모델 폼 이용하지 않을 경우 -->
+  {% comment %} <a href="{% url 'home:question_new' %}">질문 등록하기</a> {% endcomment %}
+</div>
+
+
+{% endblock %}

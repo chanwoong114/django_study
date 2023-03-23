@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load home_filter %}
+{% block content %}
+
+  <div class="container">  
+    <table class="board-list">
+      <thead>
+        <tr class="thead-white">
+          <th scope="col" class="th-title" height="70">작성자</th>
+          <th scope="col" class="th-date" height="70">작성일시</th>
+          <th scope="col" class="th-title" height="70">파일명</th>
+          <th scope="col" class="th-title" height="70">악기</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% if result %}
+        {% for results in result %}
+        {% if results.user == request.user %}
+        <tr>
+          <td height="70">{{ results.user }}</td>
+          <td>
+            {{ results.create_date }}
+          </td>
+          {% comment %} <td><a href="/result/download/?path=/{{ results.file }}">{{ results.file }}</a></td> {% endcomment %}
+          <td>
+          {% if results.status == 1 %}
+          <p style='color:#555555'>기다리는 중...</p>
+          {% elif results.status == 2 %}
+          <p style='color:#ff781f'>처리 중...</p>
+          {% elif results.status == 3 %}
+          <a href="{% url 'result:result_detail' results.id %}">{{ results.file }}</a>
+          {% elif results.status == 4 %}
+          <p style='color:#b22222'>파일 형식이 알맞지 않습니다.</p>
+          {% endif %}
+          </td>
+          <td>
+            {% if results.instrument == 1 %}
+            Piano
+            {% elif results.instrument == 2 %}
+            Guitar
+            {% elif results.instrument == 3 %}
+            Violin
+            {% endif %}
+          </td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+        {% else %}
+        <tr>
+          <td colspan="3">글이 없습니다.</td>
+        </tr>
+        {% endif %}
+      </tbody>
+    </table>     
+  </div>   
+  <ul>
+    <li>
+      <div style="text-align:center">
+    <!-- 이전 페이지가 있으면 -->
+      {% if result.has_previous %}
+      <a href="?page={{ start_index }}" style="color:black" class="btn btn-outline-danger">맨앞</a>
+      <a href="?page={{ result.previous_page_number }}" style="color:black" class="btn btn-outline-warning">이전</a>
+      {% endif %}
+      <!-- 페이지 리스트 -->
+      {% for page_number in result.paginator.page_range %}
+      <!-- 코드 추가하기 : 페이지 표시 제한 기능 구현하기 -->
+      {% if result.number|add:3 >= page_number and page_number >= result.number|add:-3 %}
+      <!-- 현재 페이지 번호랑 같다면 style을 다르게 줄 수 있다. -->
+      {% if page_number == result.number %}
+      <a href="?page={{ page_number }}" style="color:blue" class="btn btn-outline-dark">{{ page_number }}</a>
+      {% else %}
+      <a href="?page={{ page_number }}" style="color:black" class="btn btn-outline-warning">{{ page_number }}</a>
+      {% endif %}
+      {% endif %}
+      {% endfor%}
+      <!-- 다음 페이지가 있으면 -->
+      {% if result.has_next %}
+      <a href="?page={{ result.next_page_number }}" style="color:black" class="btn btn-outline-warning">다음</a>
+      <a href="?page={{ result.end_index }}" style="color:black" class="btn btn-outline-danger">맨뒤</a>
+      {% endif %}
+      </div>
+    </li>
+  </ul>
+
+{% endblock %}

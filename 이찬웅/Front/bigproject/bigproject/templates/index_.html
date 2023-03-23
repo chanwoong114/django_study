@@ -1,0 +1,215 @@
+{% load static %}
+<!doctype html>
+<html class="h-100" lang="en">
+
+  <head>
+      <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+  <meta name="description" content="A well made and handcrafted Bootstrap 5 template">
+  <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="static/img/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="static/img/favicon.png">
+  <meta name="author" content="Holger Koenemann">
+  <meta name="generator" content="Eleventy v2.0.0">
+  <meta name="HandheldFriendly" content="true">
+  <title>BTS</title>
+  <link rel="stylesheet" href="{% static 'css/theme.min.css' %}">
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+   <style>
+
+/* inter-300 - latin */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: local(''),
+       url('static/fonts/inter-v12-latin-300.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('static/fonts/inter-v12-latin-300.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+/* inter-400 - latin */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local(''),
+       url('static/fonts/inter-v12-latin-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('static/fonts/inter-v12-latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: local(''),
+       url('static/fonts/inter-v12-latin-500.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('static/fonts/inter-v12-latin-500.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local(''),
+       url('static/fonts/inter-v12-latin-700.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('static/fonts/inter-v12-latin-700.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+</style>
+
+
+  </head>
+
+  <body class="bg-black text-white mt-0" data-bs-spy="scroll" data-bs-target="#navScroll">
+
+    <nav id="navScroll" class="navbar navbar-dark bg-black fixed-top px-vw-5" tabindex="0">
+  <div class="container">
+    <a class="navbar-brand pe-md-4 fs-4 col-12 col-md-auto text-center" href="">
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-stack" viewBox="0 0 16 16">
+    <path d="m14.12 10.163 1.715.858c.22.11.22.424 0 .534L8.267 15.34a.598.598 0 0 1-.534 0L.165 11.555a.299.299 0 0 1 0-.534l1.716-.858 5.317 2.659c.505.252 1.1.252 1.604 0l5.317-2.66zM7.733.063a.598.598 0 0 1 .534 0l7.568 3.784a.3.3 0 0 1 0 .535L8.267 8.165a.598.598 0 0 1-.534 0L.165 4.382a.299.299 0 0 1 0-.535L7.733.063z"/>
+    <path d="m14.12 6.576 1.715.858c.22.11.22.424 0 .534l-7.568 3.784a.598.598 0 0 1-.534 0L.165 7.968a.299.299 0 0 1 0-.534l1.716-.858 5.317 2.659c.505.252 1.1.252 1.604 0l5.317-2.659z"/>
+  </svg>
+  <span class="ms-md-1 mt-1 fw-bolder me-md-5"><strong>BTS</strong></span>
+</a>
+
+      <ul class="navbar-nav mx-auto mb-2 mb-lg-0 list-group list-group-horizontal">
+      <li class="nav-item">
+  <a class="nav-link fs-5" href="" aria-label="Homepage">
+    Home
+  </a>
+</li>
+<li class="nav-item">
+  <a class="nav-link fs-5" href="{% url 'home:question_list' %}" aria-label="A sample content page">
+    게시판
+  </a>
+</li>
+<li class="nav-item">
+  {% if user.is_authenticated %}
+  <a class="nav-link fs-5" href="{% url 'users:mypage' %}" aria-label="A system message page">마이페이지</a>
+  {% endif %}
+</li>
+
+    </ul>
+      {% if user.is_authenticated %}
+      <a href="{% url 'users:logout' %}" aria-label="Download this template" class="btn btn-outline-light">
+        <small> {{ user.username }}님 로그아웃 </small>
+      </a>
+      {% else %}
+      <a href="/users/login" aria-label="Download this template" class="btn btn-outline-light">
+        <small> Login </small>
+      </a>
+      {% endif %}
+</div>
+</nav>
+
+    <main>
+      <div class="w-100 overflow-hidden position-relative bg-black text-white" data-aos="fade">
+  <div class="position-absolute w-100 h-100 bg-black opacity-75 top-0 start-0"></div>
+  <div class="container py-vh-4 position-relative mt-5 px-vw-5 text-center">
+  <div class="row d-flex align-items-center justify-content-center py-vh-5">
+    <div class="col-12 col-xl-10">
+      <span class="h5 text-secondary fw-lighter">Our Mission</span>
+      <h1 class="display-huge mt-3 mb-3 lh-1"> Beat To Sheet</h1>
+    </div>
+    <div class="col-12 col-xl-8">
+      <p class="lead text-secondary">원하는 음악을 악보로!!</p>
+    </div>
+    <form method="POST" action="{% url 'result:result' %}" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="col-12 text-center">
+        <div class="form-group">
+          <fieldset>
+          <label for="content">파일 첨부</label>
+          <input type="file" id="file" name="file" class="btn btn-outline-dark">
+          </fieldset>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-xl btn-light">저장하기</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+</div>
+
+<div class="w-100 position-relative bg-black text-white bg-cover d-flex align-items-center">
+  <div class="container-fluid px-vw-5">
+    <div class="position-absolute w-100 h-50 bg-dark bottom-0 start-0"></div>
+    <div class="row d-flex align-items-center position-relative justify-content-center px-0 g-5">
+      <div class="col-12 col-lg-6">
+        <a href="'http://naver.com"></a>
+          <img src="https://kr.yamaha.com/ko/files/header_video_mobile_image_2_910bef7cf0bd338fbed3f61e1519f280.jpg" width="2280" height="1732" alt="abstract image" class="img-fluid position-relative rounded-5 shadow" data-aos="fade-up">
+        </a>
+      </div>
+      <div class="col-12 col-md-6 col-lg-3">
+        <img src="static/img/webp/abstract6.webp" width="1116" height="1578" alt="abstract image" class="img-fluid position-relative rounded-5 shadow" data-aos="fade-up" data-aos-duration="2000">
+      </div>
+      <div class="col-12 col-md-6 col-lg-3">
+        <img src="static/img/webp/abstract9.webp" width="1116" height="848" alt="abstract image" class="img-fluid position-relative rounded-5 shadow" data-aos="fade-up" data-aos-duration="3000">
+      </div>
+    </div>
+  </div>
+</div>
+<div class="bg-dark">
+  <div class="container px-vw-5 py-vh-5">
+    <div class="row d-flex align-items-center">
+      <div class="col-12 col-lg-7 text-lg-end" data-aos="fade-right">
+        <span class="h5 text-secondary fw-lighter">What we do</span>
+        <h2 class="display-4">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</h2>
+      </div>
+      <div class="col-12 col-lg-5" data-aos="fade-left">
+        <h3 class="pt-5">Product Design & Strategy</h3>
+        <p class="text-secondary">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.<br>
+          <a href="#" class="link-fancy link-fancy-light me-2">Tell me more</a>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
+</svg>
+</p>
+        <h3 class="border-top border-secondary pt-5 mt-5">Development & Engineering</h3>
+        <p class="text-secondary">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.<br>
+          <a href="#" class="link-fancy link-fancy-light me-2">Tell me more</a>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
+</svg>
+</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<script src="static/js/bootstrap.bundle.min.js"></script>
+<script src="static/js/aos.js"></script>
+<script>
+AOS.init({
+ duration: 800, // values from 0 to 3000, with step 50ms
+});
+</script>
+<script>
+  let scrollpos = window.scrollY
+  const header = document.querySelector(".navbar")
+  const header_height = header.offsetHeight
+
+  const add_class_on_scroll = () => header.classList.add("scrolled", "shadow-sm")
+  const remove_class_on_scroll = () => header.classList.remove("scrolled", "shadow-sm")
+
+  window.addEventListener('scroll', function() {
+    scrollpos = window.scrollY;
+
+    if (scrollpos >= header_height) { add_class_on_scroll() }
+    else { remove_class_on_scroll() }
+
+    console.log(scrollpos)
+  })
+</script>
+
+  </body>
+</html>

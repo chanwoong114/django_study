@@ -1,0 +1,78 @@
+{% extends 'base.html' %} 
+{% load home_filter %} 
+{% block content %}
+
+<div>
+  <div class="container">
+    <h5>질문 등록</h5>
+  </div>
+  <form method="POST">
+    {% csrf_token %}
+
+    <!-- 오류표시 Start -->
+    {% if form.errors %}
+    <div class="alert alert-danger" role="alert">
+      {% for field in form %} 
+      {% if field.errors %}
+        <strong>{{ field.label }}</strong>
+      {{ field.errors }} 
+      {% endif %} 
+      {% endfor %}
+    </div>
+    {% endif %}
+    <script>
+      let idNum = 0;
+      function deepCopy() {
+          const fileModule = document.getElementById('file-module-'+idNum);
+  
+          const newNode = fileModule.cloneNode(true);
+  
+          console.log(newNode)
+  
+          idNum++;
+          newNode.id = 'file-module-' + idNum;
+  
+          fileModule.after(newNode);
+      }
+  </script>
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+  
+      <!-- 오류표시 Start -->
+      {% if form.errors %}
+      <div class="alert alert-danger" role="alert">
+        {% for field in form %}
+        {% if field.errors %}
+        <strong>{{ field.label }}</strong>
+        {{ field.errors }}
+        {% endif %}
+        {% endfor %}
+      </div>
+      {% endif %}
+      <!-- 오류표시 End -->
+      <div class="container">
+        <div class="form-group">
+          <label for="subject">제목</label>
+          <input type="text" class="form-control" name="subject" id="subject" value="{{ form.subject.value|default_if_none:'' }}">
+        </div>
+        <div class="form-group">
+          <label for="content">내용</label>
+          <textarea class="form-control" name="content" id="content" rows="10">{{ form.content.value|default_if_none:'' }}</textarea>
+        </div>
+        <span id='file-module-0'>
+        <div class="form-group">
+          <fieldset>
+          <label for="imgfile">파일 첨부</label>
+          <input type="file" id="imgfile" name="imgfile" class="btn btn-outline-dark">
+          </fieldset>
+        </div>
+        </span>
+        <button onclick="deepCopy()" type="button" class="btn btn-outline-dark">파일 추가</button>
+        <br>
+      <!-- {{ form.as_p }} -->
+        <button class="btn btn-outline-warning">저장하기</button>
+      </div>
+  </form>
+</div>
+
+{% endblock %}

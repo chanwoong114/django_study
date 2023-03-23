@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load home_filter %}
+{% block content %}
+<div class="container">
+    <main class="mb-auto col-12">
+        <br /><br /><br />
+        <audio controls>
+            <source src='/media/{{ mp3 }}'>
+        </audio>
+        <h1><a href='/media/{{ mid }}'>download .mid</a></h1>
+    </main>
+    {% for r in ret %}
+    <img src="{{ r }}" width='80%' /><br />
+    {% endfor %}
+</div>
+
+{% endblock %}

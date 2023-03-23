@@ -1,0 +1,8 @@
+<form action="" method="post" enctype="multipart/form-data">
+	{% csrf_token %}
+	<table>
+		<h1> 음악파일 제출</h1>
+        {{ form.as_table }}
+	</table>
+	<input type="submit">
+</form>

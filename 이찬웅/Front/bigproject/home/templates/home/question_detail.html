@@ -1,0 +1,123 @@
+{% extends 'base.html' %} 
+{% load home_filter %} 
+{% block content %}
+
+<div class="container my-3">
+  <h1 class="border-bottom py-2">{{ a_question.subject }}</h1>
+  <div class="card my-3">
+    <div class="card-body">
+      <div
+        class="card-text"
+        style="color: black; font-size: 1.5em"
+        font-sizes="16pt"
+      >
+        <br />
+        {{ a_question.content }}
+        <br />
+        <div class="image-box">
+          {% for sheet in a_question.sheet_set.all %}
+          <img src="{{ sheet.imgfile.url }}" width="300" height="300" />
+          {% endfor %}
+        </div>
+      </div>
+      <div class="container my-3">
+        <div class="badge-light py-2" style="color: black; text-align: right">
+          {{ a_question.create_date }}<br />
+          작성자 : {{ a_question.user }}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    {% if request.user == a_question.user or request.user.is_staff == True %}
+    <button
+      aria-label="Download this template"
+      class="btn btn-outline-dark"
+      onclick="location.href='/board/{{ a_question.id }}/edit/'"
+    >
+      수정
+    </button>
+    <button
+      aria-label="Download this template"
+      class="btn btn-outline-danger"
+      style="color: red"
+      onclick='if(confirm("삭제하시겠습니까?") == true){delete_modal()}'
+    >
+      삭제
+    </button>
+    {% endif %}
+  </div>
+  <script type="text/javascript">
+    function delete_modal() {
+      location.replace("/board/{{ a_question.id }}/delete/");
+    }
+    function delete_modal1() {
+      location.replace("/board/{{ a_question.answer_set }}/answer/delete/");
+    }
+  </script>
+  <div class="border-bottom my-3 py-2">
+    {{ a_question.answer_set.count }}개의 답변이 있습니다. 
+    {% for answer in a_question.answer_set.all %}
+    <div class="card my-3">
+      <div class="card-body">
+        <div class="card-text" style="color: black; font-size: 1.5em">
+          {{ answer.content }}
+        </div>
+        <div class="d-flex justify-content-end">
+          <div class="container my-3" style="color: black; text-align: right">
+            {{ answer.create_date }}<br />
+            작성자 : {{ answer.user }}
+            <script type="text/javascript">
+              function delete_modal1() {
+                location.replace("/board/{{ answer.id }}/answer/delete/");
+              }
+            </script>
+            {% if request.user == answer.user or request.user.is_staff == True %}
+            <button
+              aria-label="Download this template"
+              class="btn btn-outline-danger"
+              style="color: red"
+              onclick='if(confirm("삭제하시겠습니까?") == true){delete_modal1()}'
+            >
+              삭제
+            </button>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+    <form
+      action="{% url 'home:answer_create' a_question.id %}"
+      method="post"
+      class="my-3"
+    >
+      {% csrf_token %} {% if form.errors %}
+      <div class="alert alert-danger" role="alert">
+        {% for field in form %} {% if field.errors %}
+        <strong>{{ field.label }}</strong>
+        {{ field.errors }} {% endif %} {% endfor %}
+      </div>
+      {% endif %}
+      <!-- 오류표시 End -->
+      {% for message in messages %} {{ message.tag }} {{ message }} {% endfor %}
+      <div class="form-group">
+        <textarea
+          name="content"
+          id="content"
+          class="form-control"
+          rows="10"
+        ></textarea>
+      </div>
+      <input
+        type="submit"
+        value="답변등록"
+        aria-label="Download this template"
+        class="btn btn-outline-dark"
+      />
+      <!-- {{ form.as_p }}대신 forms.py 사용 -->
+      <!-- 오류표시 Start -->
+    </form>
+  </div>
+</div>
+{% endblock %}

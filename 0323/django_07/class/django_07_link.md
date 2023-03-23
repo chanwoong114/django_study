@@ -1,0 +1,7 @@
+[p14. UserCreationForm](https://github.com/django/django/blob/stable/3.2.x/django/contrib/auth/forms.py#L75)
+[p18. UserCreationForm](https://github.com/django/django/blob/main/django/contrib/auth/forms.py#L106)
+[p28. UserCreationForm](https://github.com/django/django/blob/main/django/contrib/auth/forms.py#L139)
+[p41. UserCreationForm](https://github.com/django/django/blob/main/django/contrib/auth/forms.py#L147)
+[p41. UserClass](https://github.com/django/django/blob/main/django/contrib/auth/models.py#L405)
+[p41. AbstractUser](https://github.com/django/django/blob/main/django/contrib/auth/models.py#L334)
+[p41. UserModel](https://docs.djangoproject.com/en/3.2/ref/contrib/auth/#user-model)
