@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+{% block content %}
+    <h1>회원정보 수정</h1>
+    <form action="{% url 'accounts:update' %}" method="POST">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% buttons %}
+        <button type="submit" class="btn btn-info">Update</button>
+        <a href="{% url 'accounts:password' %}" class="btn btn-success">Change password</a>
+        {% endbuttons %}
+    </form>
+{% endblock content %}
