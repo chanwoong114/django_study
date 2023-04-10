@@ -1,0 +1,3 @@
+- [foreignkey docs](https://docs.djangoproject.com/en/3.2/ref/models/fields/)
+- [relations](https://docs.djangoproject.com/en/3.2/ref/models/relations/)
+- [save method](https://docs.djangoproject.com/en/3.2/topics/forms/modelforms/#the-save-method)

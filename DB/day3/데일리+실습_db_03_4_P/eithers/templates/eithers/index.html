@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>INDEX</h1>
+<hr>
+{% for question in questions %}
+  <div>
+    <p>{{ forloop.counter }}번 이슈</p>
+    <h2>{{ question.title }}</h2>
+    <a href="{% url 'eithers:detail' question.pk %}">DETAIL</a>
+  </div>
+  <hr>
+{% endfor %}
+{% endblock  %}

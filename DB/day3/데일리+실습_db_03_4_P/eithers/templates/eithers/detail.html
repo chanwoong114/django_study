@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>DETAIL</h1>
+<hr>
+<a href="{% url 'eithers:update' question.id %}">수정하기</a>
+<form action="{% url 'eithers:delete' question.id %}" method="POST">
+  {% csrf_token %}
+  <input type="submit" value="삭제하기">
+</form>
+<h2>{{ question.title }}</h2>
+<div>
+  <h4>Red TEAM <h5>{{ question.issue_a }} => {{ count_a }}명 선택 ({{per_a}}%)</h5></h4>
+  <br>
+  <h4>Blue TEAM <h5>{{ question.issue_b }} => {{ count_b }}명 선택 ({{per_b}}%)</h5></h4>
+</div>
+<hr>
+<a href="{% url 'eithers:index' %}">BACK</a>
+<hr>
+
+<h3>댓글 작성</h3>
+<form action="{% url 'eithers:comment_create' question.pk %}" method="post">
+  {% csrf_token %}
+  {{ comment_form.as_p }}
+  <button type="submit">작성</button>
+</form>
+
+<hr>
+
+<h3>댓글 목록</h3>
+{% for comment in question.comment_set.all %}
+  {% if comment.pick %}
+    <p>Blue - {{ comment.content }}</p>
+    {% else %}
+    <p>Red - {{ comment.content }}</p>
+  {% endif %}
+  <form action="{% url 'eithers:comment_delete' question.id comment.id  %}" method="POST">
+    {% csrf_token %}
+    <input type="submit" value="del">
+  </form>
+{% empty %}
+  <h4>아직 의견이 없습니다 :(</h4>
+{% endfor %}
+{% endblock  %}
