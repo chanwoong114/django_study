@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h1>{{ tag.content }}</h1>
+  <p>{{ tag.article_set.all|length }}개의 게시글</p>
+  <hr>
+  <h1>{{ tag.content }}을(를) 태그한 글</h1>
+  <div>
+    {% for article in tag.article_set.all %}
+      <h2>{{ article.id }}번 게시글</h2>
+      <h2>게시글 제목 : <a href="{% url 'articles:detail' article.pk %}">{{article.title}}</a></h2>
+      <p>{{ article.comment_set.all|length }}개의 댓글</p>
+      <hr>
+    {% endfor %}
+  </div>
+{% endblock content %}
